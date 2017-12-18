@@ -71,15 +71,7 @@ namespace AssemblyReport
 					};
 					return assy;
 				})
-				.OrderBy(a => a.AssemblyMark)
 				.ToList();
-
-			var view = new List<dynamic>();
-			_assemblyReport.ForEach(a =>
-			{
-				view.Add(a);
-				a.SubAssemblies.ForEach(sa => view.Add(sa));
-			});
 
 			treeView1.Nodes.Clear();
 
@@ -160,7 +152,7 @@ namespace AssemblyReport
 			try
 			{
 				var pdfDoc = new Document(PageSize.LETTER, 40f, 40f, 60f, 60f);
-				string path = $"d:\\RazorCX\\Development\\{_model.GetProjectInfo().Name} Assembly Report.pdf";
+				string path = $"d:\\RazorCX\\Development\\{_model.GetProjectInfo().Name} Assembly Report ({comboBoxPhase.Text}).pdf";
 				PdfWriter.GetInstance(pdfDoc, new FileStream(path, FileMode.OpenOrCreate));
 				pdfDoc.Open();
 
